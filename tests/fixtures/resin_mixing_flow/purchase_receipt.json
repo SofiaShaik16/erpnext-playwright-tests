@@ -1,0 +1,48 @@
+{
+	"naming_series": "PR-.custom_is_inventory.-.YY.-.####",
+	"supplier": "SUP-2025-00033",
+	"supplier_delivery_note": "Playwright Resin Mixing",
+	"company": "North Thin Ply Technology Sp z o.o.",
+	"custom_country_code": "PL",
+	"custom_is_inventory": "PL-I",
+	"currency": "PLN",
+	"buying_price_list": "Standard Buying",
+	"set_warehouse": "PL - 400-500",
+	"custom_target_warehouse_location": "PL - Container 400-500",
+	"tax_category": "23%",
+	"taxes_and_charges": "Poland VAT 23% - NTPTS Zoo",
+	"shipping_address": "NTPT Sp. z o.o",
+	"billing_address": "NTPT Sp. z o.o",
+	"items": [
+		{
+			"item_code": "I-0125",
+			"qty": 100,
+			"rate": 29.05,
+			"uom": "Kilogram",
+			"warehouse": "PL - 400-500",
+			"warehouse_location": "PL - Container 400-500",
+			"from_entity_type": "Bulk packaging",
+			"no_of_containers": 3
+		},
+		{
+			"item_code": "I-0197",
+			"qty": 100,
+			"rate": 27.2228,
+			"uom": "Kilogram",
+			"warehouse": "PL - 400-500",
+			"warehouse_location": "PL - Container 400-500",
+			"from_entity_type": "Bulk packaging",
+			"no_of_containers": 3
+		},
+		{
+			"item_code": "I-0047",
+			"qty": 100,
+			"rate": 0,
+			"uom": "Kilogram",
+			"warehouse": "PL - 400-500",
+			"warehouse_location": "PL - Container 400-500",
+			"from_entity_type": "Bulk packaging",
+			"no_of_containers": 3
+		}
+	]
+}

@@ -1,0 +1,47 @@
+[
+	{
+		"id": "RM-001",
+		"title": "BOM is ready for resin mixing work order",
+		"sheet": "BOM"
+	},
+	{
+		"id": "RM-002",
+		"title": "Purchase Receipt has raw material stock for manufacturing",
+		"sheet": "Sheet1"
+	},
+	{
+		"id": "RM-003",
+		"title": "Work Order is created from BOM and submitted",
+		"sheet": "Work Order"
+	},
+	{
+		"id": "RM-004",
+		"title": "Job Card is created from Work Order with required items",
+		"sheet": "Job Card"
+	},
+	{
+		"id": "RM-005",
+		"title": "Material Transfer for Manufacture transfers raw materials to WIP",
+		"sheet": "Material Transfer For Manufactu"
+	},
+	{
+		"id": "RM-006",
+		"title": "Job Card > Cancel Material Transfer for Manufacture and Redo with Same Stock",
+		"sheet": "Cancel MT and Redo"
+	},
+	{
+		"id": "RM-007",
+		"title": "Manufacture Stock Entry records scale-based raw material value and process loss",
+		"sheet": "Manufacture Entry"
+	},
+	{
+		"id": "RM-008",
+		"title": "Entity sticker can be generated for manufactured resin entity",
+		"sheet": "Entity Doctype"
+	},
+	{
+		"id": "RM-009",
+		"title": "Job Card > Cancel Posted Manufacture Entry and Redo",
+		"sheet": "Cancel Manufacture and Redo"
+	}
+]

@@ -1,0 +1,11 @@
+{
+	"company": "North Thin Ply Technology Sp z o.o.",
+	"production_item": "I-0996",
+	"production_item_name": "TP158",
+	"work_order_qty": 100,
+	"job_card_qty": 100,
+	"wip_warehouse": "PL - MIXING",
+	"finished_goods_warehouse": "PL - 600",
+	"purchase_receipt_item": "I-0125",
+	"purchase_receipt_warehouse": "PL - 400-500"
+}

@@ -1,0 +1,15 @@
+{
+	"naming_series": "custom_country_code.-WO-.YY.-.####",
+	"company": "North Thin Ply Technology Sp z o.o.",
+	"production_item": "I-0996",
+	"qty": 100,
+	"custom_country_code": "PL",
+	"source_warehouse": "PL - 400-500",
+	"wip_warehouse": "PL - MIXING",
+	"fg_warehouse": "PL - 600",
+	"transfer_material_against": "Job Card",
+	"use_multi_level_bom": 0,
+	"skip_transfer": 0,
+	"from_wip_warehouse": 0,
+	"stock_uom": "Kilogram"
+}

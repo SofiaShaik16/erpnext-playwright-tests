@@ -1,0 +1,6 @@
+.env
+.env.uat
+tests/.auth/
+**/__pycache__/
+*.pyc
+node_modules/
