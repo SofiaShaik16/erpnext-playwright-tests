@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
-import { benchExecute, getDoc } from "./helpers/frappe_api.js";
+import { callFixtureMethod, getDoc } from "./helpers/frappe_api.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_FIXTURE = path.resolve(__dirname, "fixtures/resin_mixing_flow");
@@ -165,10 +165,11 @@ function sumByItem(rows, fieldname) {
 	}, {});
 }
 
-function createResinMixingFlowStage1Fixture(fixture) {
-	const result = benchExecute(
+async function createResinMixingFlowStage1Fixture(fixture) {
+	const result = await callFixtureMethod(
 		"ntpt_erpnext_app.functional_tests.playwright_resin_mixing_fixture.create_resin_mixing_flow_stage1_fixture",
-		[fixture]
+		[fixture],
+		{ fixture_input: fixture }
 	);
 	expect(result?.ok, result?.reason || "Resin mixing stage 1 fixture creation failed").toBeTruthy();
 	return {
@@ -180,37 +181,50 @@ function createResinMixingFlowStage1Fixture(fixture) {
 	};
 }
 
-function createResinMixingFlowStage2Fixture(fixture, jobCardName) {
-	const result = benchExecute(
+async function createResinMixingFlowStage2Fixture(fixture, jobCardName) {
+	const result = await callFixtureMethod(
 		"ntpt_erpnext_app.functional_tests.playwright_resin_mixing_fixture.create_resin_mixing_flow_stage2_fixture",
-		[fixture, jobCardName]
+		[fixture, jobCardName],
+		{ fixture_input: fixture, job_card_name: jobCardName }
 	);
 	expect(result?.ok, result?.reason || "Resin mixing stage 2 fixture creation failed").toBeTruthy();
 	return result;
 }
 
-function createResinMixingCancellationFixture(fixture) {
-	const result = benchExecute(
+async function createResinMixingCancellationFixture(fixture) {
+	const result = await callFixtureMethod(
 		"ntpt_erpnext_app.functional_tests.playwright_resin_mixing_fixture.create_resin_mixing_cancellation_fixture",
-		[fixture]
+		[fixture],
+		{ fixture_input: fixture }
 	);
 	expect(result?.ok, result?.reason || "Resin mixing cancellation fixture creation failed").toBeTruthy();
 	return result;
 }
 
-function cancelAndRedoMaterialTransfer(fixture, documents) {
-	const result = benchExecute(
+async function cancelAndRedoMaterialTransfer(fixture, documents) {
+	const result = await callFixtureMethod(
 		"ntpt_erpnext_app.functional_tests.playwright_resin_mixing_fixture.cancel_and_redo_material_transfer_fixture",
-		[fixture, documents.job_card, documents.material_transfer_stock_entry, documents.purchase_receipt]
+		[fixture, documents.job_card, documents.material_transfer_stock_entry, documents.purchase_receipt],
+		{
+			fixture_input: fixture,
+			job_card_name: documents.job_card,
+			transfer_name: documents.material_transfer_stock_entry,
+			purchase_receipt_name: documents.purchase_receipt,
+		}
 	);
 	expect(result?.ok, result?.reason || "Cancel and redo Material Transfer fixture failed").toBeTruthy();
 	return result;
 }
 
-function cancelAndRedoManufacture(fixture, documents) {
-	const result = benchExecute(
+async function cancelAndRedoManufacture(fixture, documents) {
+	const result = await callFixtureMethod(
 		"ntpt_erpnext_app.functional_tests.playwright_resin_mixing_fixture.cancel_and_redo_manufacture_fixture",
-		[fixture, documents.job_card, documents.manufacture_stock_entry]
+		[fixture, documents.job_card, documents.manufacture_stock_entry],
+		{
+			fixture_input: fixture,
+			job_card_name: documents.job_card,
+			manufacture_name: documents.manufacture_stock_entry,
+		}
 	);
 	expect(result?.ok, result?.reason || "Cancel and redo Manufacture fixture failed").toBeTruthy();
 	return result;
@@ -251,8 +265,8 @@ test.describe.serial("Resin Mixing Manufacturing Flow", () => {
 	const { expected } = fixture;
 	let documents;
 
-	test.beforeAll(() => {
-		documents = createResinMixingFlowStage1Fixture(fixture);
+	test.beforeAll(async () => {
+		documents = await createResinMixingFlowStage1Fixture(fixture);
 	});
 
 	test(`${fixture.test_cases[0].id} - ${fixture.test_cases[0].title}`, async ({ page, request }) => {
@@ -340,7 +354,7 @@ test.describe.serial("Resin Mixing Manufacturing Flow", () => {
 	});
 
 	test(`${fixture.test_cases[5].id} - ${fixture.test_cases[5].title}`, async ({ page, request }) => {
-		const result = cancelAndRedoMaterialTransfer(fixture, documents);
+		const result = await cancelAndRedoMaterialTransfer(fixture, documents);
 
 		const oldTransfer = await expectDoc(request, "Stock Entry", result.old_transfer);
 		expectCancelled(oldTransfer, "Cancelled Material Transfer Stock Entry");
@@ -375,7 +389,7 @@ test.describe.serial("Resin Mixing Manufacturing Flow", () => {
 	test(`${fixture.test_cases[6].id} - ${fixture.test_cases[6].title}`, async ({ page, request }) => {
 		// Continue the same job card: complete it and create its Manufacture entry
 		// now, using the redone (post-cancel) Material Transfer from the previous test.
-		const stage2 = createResinMixingFlowStage2Fixture(fixture, documents.job_card);
+		const stage2 = await createResinMixingFlowStage2Fixture(fixture, documents.job_card);
 		documents.manufacture_stock_entry = stage2.manufacture_stock_entry;
 
 		const jobCard = await expectDoc(request, "Job Card", documents.job_card);
@@ -456,7 +470,7 @@ test.describe.serial("Resin Mixing Manufacturing Flow", () => {
 	});
 
 	test(`${fixture.test_cases[8].id} - ${fixture.test_cases[8].title}`, async ({ page, request }) => {
-		const result = cancelAndRedoManufacture(fixture, documents);
+		const result = await cancelAndRedoManufacture(fixture, documents);
 
 		const oldManufacture = await expectDoc(request, "Stock Entry", result.old_manufacture);
 		expectCancelled(oldManufacture, "Cancelled Manufacture Stock Entry");

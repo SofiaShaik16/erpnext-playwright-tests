@@ -77,6 +77,19 @@ export function benchExecute(method, args = null) {
 	}
 }
 
+/**
+ * Call a whitelisted Frappe method, transparently choosing between a local
+ * `bench execute` (positional args, for a machine with the site's bench checked
+ * out) and a remote `/api/method` HTTP call (kwargs, for CI runners that only
+ * have this repo checked out and talk to a deployed site over FRAPPE_BASE_URL).
+ */
+export async function callFixtureMethod(method, benchArgs = [], apiArgs = {}) {
+	if (useRemoteFrappeApi()) {
+		return remoteCallFrappeMethod(method, apiArgs);
+	}
+	return benchExecute(method, benchArgs);
+}
+
 async function getRemoteApiContext() {
 	if (!remoteApiContextPromise) {
 		remoteApiContextPromise = (async () => {
