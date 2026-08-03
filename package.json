@@ -1,0 +1,23 @@
+{
+	"name": "ntpt-erpnext-app-e2e",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test:e2e": "playwright test",
+		"test:e2e:internal-so": "playwright test tests/internal_so_workflow.spec.js",
+		"test:e2e:logistics": "playwright test tests/multi_so_pick_dn_flow.spec.js",
+		"test:e2e:uat": "PW_ENV_FILE=.env.uat playwright test",
+		"test:e2e:ui": "playwright test --ui",
+		"test:e2e:uat:ui": "PW_ENV_FILE=.env.uat playwright test --ui",
+		"test:e2e:headed": "playwright test --headed",
+		"test:e2e:uat:headed": "PW_ENV_FILE=.env.uat playwright test --headed",
+		"auth:e2e": "node tests/helpers/create_auth_storage.js",
+		"normalize:e2e:recorded": "node tests/helpers/normalize_recorded_spec.js",
+		"record:e2e": "playwright codegen --target=playwright-test -o tests/recorded.spec.ts --channel=chrome https://tpt-uat.frappe.cloud/login#login && npm run normalize:e2e:recorded",
+		"test:e2e:recorded": "npm run normalize:e2e:recorded && playwright test tests/recorded.spec.ts --config=playwright.recorded.config.js --headed"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.49.0",
+		"dotenv": "^16.4.7"
+	}
+}
