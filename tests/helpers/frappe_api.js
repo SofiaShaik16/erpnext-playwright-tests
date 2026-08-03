@@ -5,7 +5,11 @@ import { request as playwrightRequest } from "@playwright/test";
 import { loginWithApi } from "./auth.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const BENCH_ROOT = path.resolve(__dirname, "../../../..");
+// Historically this repo lived at <bench>/apps/<app>/tests/helpers/, so 4 levels
+// up landed on the bench root. Now that it's checked out standalone, that guess
+// no longer holds anywhere except the original nested layout, so let it be
+// overridden explicitly for a standalone checkout that talks to a local bench.
+const BENCH_ROOT = process.env.FRAPPE_BENCH_ROOT || path.resolve(__dirname, "../../../..");
 let remoteApiContextPromise = null;
 
 function getFrappeBaseURL() {
