@@ -18,7 +18,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chrome
       - name: Run tests
-        run: npx playwright test tests/resin_mixing_flow.spec.js --config=playwright.recorded.config.js --workers=1
+        run: npx playwright test tests/delivery_note.spec.js --config=playwright.recorded.config.js --workers=1
         env:
           FRAPPE_BASE_URL: ${{ secrets.BASE_URL }}
           FRAPPE_USER: ${{ secrets.TEST_USER }}
