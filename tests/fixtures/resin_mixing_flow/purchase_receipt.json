@@ -22,7 +22,7 @@
 			"warehouse": "PL - 400-500",
 			"warehouse_location": "PL - Container 400-500",
 			"from_entity_type": "Bulk packaging",
-			"no_of_containers": 3
+			"no_of_containers": 1
 		},
 		{
 			"item_code": "I-0197",
@@ -32,7 +32,7 @@
 			"warehouse": "PL - 400-500",
 			"warehouse_location": "PL - Container 400-500",
 			"from_entity_type": "Bulk packaging",
-			"no_of_containers": 3
+			"no_of_containers": 1
 		},
 		{
 			"item_code": "I-0047",
@@ -42,7 +42,7 @@
 			"warehouse": "PL - 400-500",
 			"warehouse_location": "PL - Container 400-500",
 			"from_entity_type": "Bulk packaging",
-			"no_of_containers": 3
+			"no_of_containers": 1
 		}
 	]
 }
